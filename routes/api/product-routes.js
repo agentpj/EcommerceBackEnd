@@ -10,11 +10,17 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   const productData = await Product.findAll({
     // Add Category as a second model to JOIN with
-    include: [{ model: Category }],
+    // include:  [ { model: Category } ], this works by itself, also works if all products no includes
+    //   include: [ { model: ProductTag }, { model: Tag }],  does not work
+    // include: [ { model: ProductTag } ], does not work
+    // include: [ { model: Tag } ], this works but wonky
+    //   include: [ { model: Tag }, { model: ProductTag} ], does not work
+     include: [ { model: Category }, { model: Tag} ],
+    //  include: [ { model: Category}, { model: ProductTag }, { model: Tag } ], does not work
   });
   res.status(200).json(productData);
 } catch (err) {
-  res.status(500).json(err);
+  res.status(500).json({message: 'Error in getting Products'});
 }
 });
 

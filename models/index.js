@@ -19,18 +19,16 @@ Product.belongsToMany(Tag, {
     through: {
       model: ProductTag,
     },
-    as: 'product_tag_name'
 });
 
-// connects to above a Product indirectly connects to a tag
-Tag.belongsToMany(Product, {
+//connects to above a Product indirectly connects to a tag 
+Tag.belongsToMany(Product, {  
     through: {
       model: ProductTag,
     },
-    as: 'tag_name_of_Product',
 });
 
-// Tags belongToMany Products (through ProductTag)
+// I get an error on this
 // Tag.belongsTo(ProductTag, {
 //   foreignKey: 'tag_id',
 // });
