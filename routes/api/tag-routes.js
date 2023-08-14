@@ -9,10 +9,6 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
   try {
     const tagData = await Tag.findAll({
-      // Add ProductTag as a second model to JOIN with
-    // include: [{ model: ProductTag }],    does not work
-     // findall just tags table works
-     // include: [{ model: Category }],
       include: [{ model: Product }],
   });
     res.status(200).json(tagData);
@@ -28,7 +24,7 @@ router.get('/:id', async (req, res) => {
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       // Add ProductTg as a second model to JOIN with
-      include: [{ model: ProductTag }, { model: Product }],
+      include: [{ model: Product }],
     });
 
     if (!tagData) {
@@ -53,12 +49,11 @@ router.post('/', async (req, res) => {
   }
 });
 
-
 //UPDATE a tag based on id
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   try {
-    const tagData = await Tag.update({
+    const tagData = await Tag.update(req.body,{
       where: {
         id: req.params.id,
       },

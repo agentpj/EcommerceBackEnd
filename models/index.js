@@ -28,11 +28,6 @@ Tag.belongsToMany(Product, {
     },
 });
 
-// I get an error on this
-// Tag.belongsTo(ProductTag, {
-//   foreignKey: 'tag_id',
-// });
-
 module.exports = {
   Product,
   Category,
